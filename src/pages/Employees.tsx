@@ -11,6 +11,7 @@ const Employees = () => {
     const [sort, setSort] = useState<"asc" | "desc">("asc");
     const [currentPage, setCurrentPage] = useState(1);
 
+    
     const handleSearch = (val: string) => { setSearch(val); setCurrentPage(1); };
     const handleSort = (val: "asc" | "desc") => { setSort(val); setCurrentPage(1); };
 
