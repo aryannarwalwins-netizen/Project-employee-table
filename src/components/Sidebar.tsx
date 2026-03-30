@@ -1,8 +1,8 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink,} from "react-router-dom";
 
 const navItems = [
     { to: "/", icon: "🏠", label: "Dashboard", exact: true },
-    { to: "/employees", icon: "👥", label: "Employees", badge: "10" },
+    { to: "/employees", icon: "👥", label: "Employees", badge: "0" },
     { to: "/employees/add", icon: "➕", label: "Add Employee" },
 ];
 
@@ -12,7 +12,7 @@ const reportsItems = [
 ];
 
 const Sidebar = () => {
-    const location = useLocation();
+    // const location = useLocation();
 
     return (
         <aside className="sidebar">

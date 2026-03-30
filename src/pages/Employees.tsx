@@ -1,49 +1,25 @@
-import { useEffect, useState } from "react";
-import { fetchEmployees } from "../services/api";
-import type { Employee } from "../services/api";
-import EmployeeTable from "../components/EmployeeTable";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import EmployeeTable from "../components/EmployeeTable";
+import { useEmployeeContext } from "../context/EmployeeContext";
 
 const ITEMS_PER_PAGE = 10;
 
 const Employees = () => {
-    const [employees, setEmployees] = useState<Employee[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const { employees, loading, error } = useEmployeeContext();
     const [search, setSearch] = useState("");
     const [sort, setSort] = useState<"asc" | "desc">("asc");
     const [currentPage, setCurrentPage] = useState(1);
 
-    useEffect(() => {
-        fetchEmployees()
-            .then(setEmployees)
-            .catch(() => setError("Failed to fetch employees. Please try again."))
-            .finally(() => setLoading(false));
-    }, []);
-
-    const handleSearch = (val: string) => {
-        setSearch(val);
-        setCurrentPage(1);
-    };
-
-    const handleSort = (val: "asc" | "desc") => {
-        setSort(val);
-        setCurrentPage(1);
-    };
+    const handleSearch = (val: string) => { setSearch(val); setCurrentPage(1); };
+    const handleSort = (val: "asc" | "desc") => { setSort(val); setCurrentPage(1); };
 
     const filtered = employees
         .filter((e) => e.name.toLowerCase().includes(search.toLowerCase()))
-        .sort((a, b) =>
-            sort === "asc"
-                ? a.name.localeCompare(b.name)
-                : b.name.localeCompare(a.name)
-        );
+        .sort((a, b) => sort === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
 
     const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
-    const paginated = filtered.slice(
-        (currentPage - 1) * ITEMS_PER_PAGE,
-        currentPage * ITEMS_PER_PAGE
-    );
+    const paginated = filtered.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
     return (
         <div>
@@ -53,7 +29,6 @@ const Employees = () => {
             </div>
 
             <div className="section-card">
-                {/* Controls bar */}
                 <div className="section-card-header">
                     <div className="controls-bar">
                         <div className="search-box">
@@ -76,13 +51,11 @@ const Employees = () => {
                             <option value="desc">Name: Z → A</option>
                         </select>
                     </div>
-
                     <Link to="/employees/add" className="btn btn-primary">
                         ➕ &nbsp;Add Employee
                     </Link>
                 </div>
 
-                {/* Body */}
                 {loading ? (
                     <div className="state-container">
                         <div className="spinner" />
@@ -92,12 +65,7 @@ const Employees = () => {
                 ) : error ? (
                     <div style={{ padding: 24 }}>
                         <div className="alert alert-error">{error}</div>
-                        <button
-                            className="btn btn-outline"
-                            onClick={() => window.location.reload()}
-                        >
-                            Retry
-                        </button>
+                        <button className="btn btn-outline" onClick={() => window.location.reload()}>Retry</button>
                     </div>
                 ) : (
                     <EmployeeTable
