@@ -24,7 +24,7 @@ const AddEmployee = () => {
                 <p>Fill in the form below to add a new employee to the system.</p>
             </div>
 
-            <div className="section-card">
+           <div className="section-card">
                 <div className="section-card-header"><h2>Employee Information</h2></div>
                 <div className="section-card-body">
                     <EmployeeForm onSuccess={handleSuccess} />
@@ -49,6 +49,7 @@ const AddEmployee = () => {
                                         <td>{emp.email}</td>
                                         <td>{emp.phone || "—"}</td>
                                         <td>{emp.company?.name || "—"}</td>
+
                                     </tr>
                                 ))}
                             </tbody>
@@ -59,5 +60,4 @@ const AddEmployee = () => {
         </div>
     );
 };
-
 export default AddEmployee;

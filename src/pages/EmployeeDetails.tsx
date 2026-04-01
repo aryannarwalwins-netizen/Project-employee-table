@@ -17,11 +17,13 @@ const EmployeeDetails = () => {
     useEffect(() => {
         if (!id) return;
         const found = employees.find((e) => String(e.id) === id);
+
         if (found) {
             setEmployee(found);
             setLoading(false);
             return;
         }
+
         fetchEmployeeById(Number(id))
             .then(setEmployee)
             .catch(() => setError("Employee not found or failed to load."))
@@ -53,11 +55,13 @@ const EmployeeDetails = () => {
             <Link to="/employees" className="back-btn">
                 ← Back to Employees
             </Link>
+        
             <div className="section-card">
-
                 <div className="employee-hero">
                     <div className="big-avatar">{getInitials(employee.name)}</div>
+
                     <div className="hero-info">
+
                         <h2>{employee.name}</h2>
                         <div className="username">@{employee.username}</div>
                     </div>
@@ -73,16 +77,25 @@ const EmployeeDetails = () => {
                         </h2>
                     </div>
                     <div className="detail-grid" style={{ marginBottom: 32 }}>
+
                         <div className="detail-item">
+
                             <div className="dl">📧 Email</div>
+
                             <div className="dd">{employee.email}</div>
+
                         </div>
+
                         <div className="detail-item">
+
                             <div className="dl">📞 Phone</div>
+
                             <div className="dd">{employee.phone}</div>
                         </div>
                         <div className="detail-item">
+
                             <div className="dl">🌐 Website</div>
+
                             <div className="dd">{employee.website}</div>
                         </div>
                     </div>
@@ -92,8 +105,11 @@ const EmployeeDetails = () => {
                             Address
                         </h2>
                     </div>
+
                     <div className="detail-grid" style={{ marginBottom: 32 }}>
+
                         <div className="detail-item">
+
                             <div className="dl">🏠 Street</div>
                             <div className="dd">{employee.address.street}, {employee.address.suite}</div>
                         </div>
@@ -135,6 +151,5 @@ const EmployeeDetails = () => {
         </div>
     );
 };
-
 
 export default EmployeeDetails;
