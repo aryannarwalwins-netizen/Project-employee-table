@@ -29,6 +29,7 @@ const EmployeeTable = ({
     const start = (currentPage - 1) * itemsPerPage + 1;
     const end = Math.min(currentPage * itemsPerPage, totalItems);
 
+   
     if (data.length === 0) {
         return (
             <div className="no-results">
@@ -53,10 +54,12 @@ const EmployeeTable = ({
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((emp, idx) => (
+
+                        {data.map((emp, index) => (
+
                             <tr key={emp.id}>
                                 <td style={{ color: "var(--text-muted)", width: "48px" }}>
-                                    {(currentPage - 1) * itemsPerPage + idx + 1}
+                                    {(currentPage - 1) * itemsPerPage + index + 1}
                                 </td>
                                 <td>
                                     <div className="emp-name-cell">
@@ -68,14 +71,16 @@ const EmployeeTable = ({
                                             >
                                                 {emp.name}
                                             </Link>
-                                            <div className="emp-meta">@{emp.username}</div>
+                                            
                                         </div>
                                     </div>
                                 </td>
+
                                 <td>{emp.email}</td>
                                 <td>{emp.phone}</td>
                                 <td>{emp.company?.name}</td>
                                 <td>
+
                                     <span className="emp-badge">● Active</span>
                                 </td>
                             </tr>
@@ -84,7 +89,6 @@ const EmployeeTable = ({
                 </table>
             </div>
 
-            {/* Pagination */}
             <div className="pagination">
                 <div className="pagination-info">
                     Showing <strong>{start}–{end}</strong> of <strong>{totalItems}</strong> employees
@@ -103,7 +107,7 @@ const EmployeeTable = ({
                         onClick={() => onPageChange(currentPage - 1)}
                         disabled={currentPage === 1}
                         title="Previous page"
-                    >
+                    >                        
                         ‹
                     </button>
 
@@ -117,6 +121,7 @@ const EmployeeTable = ({
                         </button>
                     ))}
 
+
                     <button
                         className="page-btn"
                         onClick={() => onPageChange(currentPage + 1)}
@@ -125,6 +130,7 @@ const EmployeeTable = ({
                     >
                         ›
                     </button>
+                    
                     <button
                         className="page-btn"
                         onClick={() => onPageChange(totalPages)}
